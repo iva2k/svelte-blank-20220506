@@ -5,6 +5,7 @@
 		"checkJs": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
+		"importsNotUsedAsValues":"error",
 		"lib": ["es2020", "DOM"],
 		"moduleResolution": "node",
 		"module": "es2020",
@@ -12,6 +13,16 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"target": "es2020"
-	}
+		"target": "es2020",
+
+		// Experiments:
+		"strictBindCallApply": true
+	},
+
+	// Fixing storybook .js files inadvertently translated as .ts
+	// "include": ["src"],
+	"exclude": [
+		"*.js", // Typescript translation should not be even attempted. // TODO: review allowJs, checkJs in compilerOptions
+		"src/stories/*.stories.js", "src/stories/*.svelte" // TODO: Keep temporarily, while removing dummy src/stories
+	]
 }

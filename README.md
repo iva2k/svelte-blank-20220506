@@ -37,7 +37,7 @@ To deploy the app, need to install an [adapter](https://kit.svelte.dev/docs/adap
 
 ## Additions
 
-Adddesktop support using Tauri.
+Add desktop support using Tauri.
 
 ### Remove Default Server
 
@@ -83,7 +83,7 @@ Add ssr:false to src/hooks.ts:
 
 ```ts
 export const handle: Handle = async ({ event, resolve }) => {
-    ...
+  ...
 -  const response = await resolve(event);
 +  const response = await resolve(event, {
 +    ssr: false, // For Tauri (since 1.0.0-next.222)
@@ -91,3 +91,37 @@ export const handle: Handle = async ({ event, resolve }) => {
   return response;
 };
 ```
+
+Add Storybook
+
+```bash
+npx sb init --builder @storybook/builder-vite
+npm install -D @storybook/addon-docs
+npm install -D @storybook/addon-svelte-csf
+```
+
+Disable Storybook telemetry:
+
+```js
+// .storybook/main.js
+
+module.exports = {
+  core: {
++    disableTelemetry: true, // 👈 Disables telemetry
+  }
+};
+```
+
+To fix error in .storybook/main.js, add file .storybook/package.json with the following:
+
+```json
+// .storybook/package.json
+{
+  "type": "commonjs"
+}
+```
+
+Note: As of 2022-0522 Node 17 and 18 have issues, so use node<17.0.0 in package.json "engines" and engine-strict=true in .npmrc:
+
+* <https://github.com/storybookjs/storybook/issues/18019>
+* <https://github.com/storybookjs/storybook/issues/16555>
