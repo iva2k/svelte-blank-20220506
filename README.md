@@ -96,6 +96,7 @@ Add Storybook
 
 ```bash
 npx sb init --builder @storybook/builder-vite
+npm install -D @storybook/addon-controls
 npm install -D @storybook/addon-docs
 npm install -D @storybook/addon-svelte-csf
 ```
@@ -125,3 +126,13 @@ Note: As of 2022-0522 Node 17 and 18 have issues, so use node<17.0.0 in package.
 
 * <https://github.com/storybookjs/storybook/issues/18019>
 * <https://github.com/storybookjs/storybook/issues/16555>
+
+Another issue is storybook's v6.5.3 storyStoreV7=true not parsing `.stories.svelte` files. And storyStoreV7=false does not load stories at all (no filed issues).
+
+<https://github.com/storybookjs/storybook/issues/16673>
+
+Finally, got Storybook working with stories (.tsx, not .svelte) for Counter and Header (after reworking Header into Header + PureHeader). However, Counter.svelte has Typescript, and Storybook chokes on it, similar to this issue:
+
+<https://stackoverflow.com/questions/70681325/storybook-vite-svelte-typescript-typescript-not-being-processed-in-st>
+
+That references a bug that has been fixed, however, I'm still getting Storybook not taking .svelte components with Typescript. Blocked. Will have to wait some time, maybe file another issue with <https://github.com/storybookjs/builder-vite/issues>.
