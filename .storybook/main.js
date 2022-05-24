@@ -1,5 +1,6 @@
 const path = require('path');
-//? const path = import('path');
+
+const preprocess = require('svelte-preprocess');
 
 const alias = {
   // $app: path.resolve(__dirname, '../node_modules/@sveltejs/kit/assets/runtime/app'),
@@ -33,8 +34,8 @@ module.exports = {
     '../src/**/*.stories.@(js|jsx|ts|tsx|svelte)'
   ],
   svelteOptions: {
-//    'preprocess': require('../svelte.config.js').preprocess
-    preprocess: import('../svelte.config.js').preprocess
+    // preprocess: import('../svelte.config.js').then( ({default: m}) => m.preprocess; // import() is async, won't work in main.cjs.
+    preprocess: preprocess(),
   },
   features: {
     // storyStoreV7: false, // Disable on-demand stories loading. Not loading any stories in storybook v6.5.3
